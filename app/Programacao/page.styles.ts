@@ -13,7 +13,9 @@ export const Container = styled.div`
         padding-top: 2rem;
         width: 100%;
         margin-top: 6rem;
+		margin-bottom: 2rem ;
     }
+
 `;
 
 export const ContainerProgramacao = styled.div`
@@ -85,25 +87,38 @@ export const ListaFilmes = styled.div`
 
 export const Informacoes = styled.div`
 	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: center;
-	align-self: center;
-	gap: 0.5rem;
-	margin-bottom: 1rem;
+	flex-direction: column	;
+	align-items: flex-start;
+	gap: 1rem;
 
 	h1{
 		color: #8B0000;
 		font-family: Arial, Helvetica, sans-serif;
-		margin-bottom: 1rem;
-		text-align: center;
+		align-self: center;
+		font-size: 2rem;
+		padding: 0;
+		margin: 0;
+		
 	}
 `;
 
 export const Horarios = styled.div`
 	display: flex;
 	flex-direction: column;
-	gap: 1rem;
+	gap: 0.5rem;
+
+	p {
+		font-family: Arial, Helvetica, sans-serif;
+		color: black;
+		font-size: 1rem;
+	}
+
+	img {
+		width: 3.5rem;
+		height: 3.5rem;
+		border: none;
+		margin-top: 0.5rem;
+	}
 `;
 
 export const ContainerBotoes = styled.div`
@@ -166,4 +181,9 @@ export const BotaoHorario = styled.button`
 	font-size: 1rem;
 
 	transition: 0.2s;
+
+	&:hover {
+		background-color: #32CD32;
+	}
 `;
+
