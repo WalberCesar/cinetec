@@ -1,12 +1,13 @@
 'use client'
 
 import { Header } from "@/components/header";
-import { Botao3D, BotaoDublado, Container, ContainerBotoes, ContainerProgramacao, HeaderData, Horarios, Informacoes, ListaFilmes } from "./page.styles";
+import { Botao3D, BotaoDublado, BotaoHorario, Container, ContainerBotoes, ContainerProgramacao, HeaderData, Horarios, Informacoes, ListaFilmes } from "./page.styles";
 import { Footer } from "@/components/Footer";
 import Image from "next/image";
 
 import ImageAir from '../../public/assets/filmesEmCartaz/air.png'
 import Link from "next/link";
+import ImagemClassificacaoLivre from "../../public/assets/classificacao/livre.png"
 
 export default function Programacao() {
     return (
@@ -39,8 +40,72 @@ export default function Programacao() {
                                 <ContainerBotoes>
                                     <BotaoDublado>Dublado</BotaoDublado>
                                     <Botao3D>3D</Botao3D>
-                                    <Link href={''}>18:00</Link>
+                                    <Link href={''}><BotaoHorario>18:00</BotaoHorario></Link>
                                 </ContainerBotoes>
+                            </Horarios>
+                            <Horarios>
+                                <p>Sala 1</p>
+                                <ContainerBotoes>
+                                    <BotaoDublado>Dublado</BotaoDublado>
+                                    <Botao3D>3D</Botao3D>
+                                    <Link href={''}><BotaoHorario>18:00</BotaoHorario></Link>
+                                </ContainerBotoes>
+
+                                <Image alt="" src={ImagemClassificacaoLivre} />
+                            </Horarios>
+                        </Informacoes>
+                    </ListaFilmes>
+                    <ListaFilmes>
+                        <Image src={ImageAir} alt="" />
+
+                        <Informacoes>
+                            <h1>AIR</h1>
+
+                            <Horarios>
+                                <p>Sala 1</p>
+                                <ContainerBotoes>
+                                    <BotaoDublado>Dublado</BotaoDublado>
+                                    <Botao3D>3D</Botao3D>
+                                    <Link href={''}><BotaoHorario>18:00</BotaoHorario></Link>
+                                </ContainerBotoes>
+                            </Horarios>
+                            <Horarios>
+                                <p>Sala 1</p>
+                                <ContainerBotoes>
+                                    <BotaoDublado>Dublado</BotaoDublado>
+                                    <Botao3D>3D</Botao3D>
+                                    <Link href={''}><BotaoHorario>18:00</BotaoHorario></Link>
+                                </ContainerBotoes>
+
+                                <Image alt="" src={ImagemClassificacaoLivre} />
+
+                            </Horarios>
+
+                        </Informacoes>
+                    </ListaFilmes>
+                    <ListaFilmes>
+                        <Image src={ImageAir} alt="" />
+
+                        <Informacoes>
+                            <h1>AIR</h1>
+
+                            <Horarios>
+                                <p>Sala 1</p>
+                                <ContainerBotoes>
+                                    <BotaoDublado>Dublado</BotaoDublado>
+                                    <Botao3D>3D</Botao3D>
+                                    <Link href={''}><BotaoHorario>18:00</BotaoHorario></Link>
+                                </ContainerBotoes>
+                            </Horarios>
+                            <Horarios>
+                                <p>Sala 1</p>
+                                <ContainerBotoes>
+                                    <BotaoDublado>Dublado</BotaoDublado>
+                                    <Botao3D>3D</Botao3D>
+                                    <Link href={''}><BotaoHorario>18:00</BotaoHorario></Link>
+                                </ContainerBotoes>
+
+                                <Image alt="" src={ImagemClassificacaoLivre} />
                             </Horarios>
                         </Informacoes>
                     </ListaFilmes>
