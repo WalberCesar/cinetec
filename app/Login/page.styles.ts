@@ -42,7 +42,18 @@ export const HeaderConteudo = styled.div`
 export const Formulario = styled.form`
        display: flex;
         flex-direction: column;
-        gap: 1rem;
+        gap: 0.5rem;
+
+        > div {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.125rem;
+        }
+
+        p {
+            font-weight: 600;
+        }
 `;
 
 export const InputEmail = styled.input`
@@ -59,8 +70,9 @@ export const InputEmail = styled.input`
         outline: none;
 
         &::placeholder {
-            color: #DCDCDC;
+            color: #D3D3D3;
             font-size: 1rem;
+            font-weight: 100;
         }
 `;
 export const InputSenha = styled.input`
@@ -80,6 +92,7 @@ export const InputSenha = styled.input`
         &::placeholder {
             color: #DCDCDC;
             font-size: 1rem;
+            font-weight: 100;
         }
 `;
 

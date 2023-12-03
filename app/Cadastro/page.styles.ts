@@ -11,7 +11,7 @@ export const ContainerLogin = styled.div`
         align-items: center;
         justify-content: center;
         width: 100%;
-        height: calc(100vh - 12rem);
+        min-height: calc(100vh - 12rem);
         color: #DCDCDC;
     }
 `;
@@ -23,6 +23,7 @@ export const Conteudo = styled.form`
     justify-content: center;
     gap: 2rem;
     width: 100%;
+    margin: 6rem 0;
 `;
 
 export const HeaderConteudo = styled.div`
@@ -43,5 +44,16 @@ export const Formulario = styled.form`
        display: flex;
         flex-direction: column;
         gap: 1rem;
+
+        > div {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.125rem;
+        }
+
+        p {
+            font-weight: 600;
+        }
 `;
 

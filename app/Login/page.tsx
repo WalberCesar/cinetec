@@ -16,9 +16,17 @@ export default function Login() {
                     </HeaderConteudo>
 
 
-                    <Formulario>
-                        <InputEmail placeholder="Email" />
-                        <InputSenha type="password" placeholder="Senha" />
+                    <Formulario >
+                        <div>
+                            <p>Email:</p>
+                            <InputEmail placeholder="Digite seu email" />
+                        </div>
+
+                        <div>
+                            <p>Senha:</p>
+                            <InputSenha type="password" placeholder="Digite sua senha" />
+                        </div>
+
                         <BotaoLogin>
                             Entrar
                         </BotaoLogin>
