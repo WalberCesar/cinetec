@@ -1,10 +1,14 @@
-import { ComponentProps } from "react";
+import { ComponentProps, InputHTMLAttributes } from "react";
 import { Container } from "./index.styles";
+import { UseFormRegister } from "react-hook-form";
 
-type InputProps = ComponentProps<typeof Container>
+type InputProps = InputHTMLAttributes<HTMLInputElement> & {
+    register: UseFormRegister<any>
+    nameInput: string
+}
 
-export function Input({ ...rest }: InputProps) {
+export function Input({ nameInput, register, ...rest }: InputProps) {
     return (
-        <Container {...rest} />
+        <Container {...rest} {...register(`${nameInput}`)} />
     )
 }

@@ -20,7 +20,7 @@ export default function Login() {
     });
 
     function login(data: LoginFormSchema) {
-
+        console.log(data)
     }
     return (
         <ContainerLogin>

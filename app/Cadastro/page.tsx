@@ -1,12 +1,36 @@
 'use client'
 
 import { Header } from "@/components/header";
-import { ContainerLogin, Conteudo, Formulario, HeaderConteudo } from "./page.styles";
+import { BotaoCadastro, ContainerLogin, Conteudo, Formulario, HeaderConteudo } from "./page.styles";
 import { Footer } from "@/components/Footer";
 import { Input } from "@/components/input";
-import { Botao } from "@/components/BotaoLogin";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form";
+
+const cadastroFormSchema = z.object({
+    nome: z.string(),
+    cpf: z.string(),
+    dataNascimento: z.string(),
+    celular: z.string(),
+    email: z.string(),
+    senha: z.string(),
+})
+
+type CadastroFormSchema = z.infer<typeof cadastroFormSchema>
+
+
 
 export default function Cadastro() {
+
+    const { handleSubmit, register } = useForm<CadastroFormSchema>({
+        resolver: zodResolver(cadastroFormSchema)
+    });
+
+    function cadastrar(data: CadastroFormSchema) {
+        console.log(data)
+    }
+
     return (
         <ContainerLogin>
             <Header />
@@ -18,36 +42,36 @@ export default function Cadastro() {
                     </HeaderConteudo>
 
 
-                    <Formulario>
+                    <Formulario onSubmit={handleSubmit(cadastrar)}>
                         <div>
                             <p>Nome:</p>
-                            <Input placeholder="Nome" />
+                            <Input placeholder="Nome" nameInput="nome" register={register} />
                         </div>
                         <div>
                             <p>CPF:</p>
-                            <Input minLength={11} maxLength={11} type="number" placeholder="CPF" />
+                            <Input placeholder="CPF" nameInput="cpf" register={register} />
 
                         </div>
                         <div>
                             <p>Data de nascimento:</p>
-                            <Input placeholder="Data de Nascimento" />
+                            <Input placeholder="Data de Nascimento" nameInput="dataNascimento" register={register} />
                         </div>
                         <div>
                             <p>Celular:</p>
-                            <Input placeholder="Celular" />
+                            <Input placeholder="Celular" nameInput="celular" register={register} />
                         </div>
                         <div>
                             <p>Email:</p>
-                            <Input placeholder="Email" />
+                            <Input placeholder="Email" nameInput="email" register={register} />
                         </div>
                         <div>
                             <p>Senha:</p>
-                            <Input type="password" placeholder="Senha" />
+                            <Input type="password" placeholder="Senha" nameInput="senha" register={register} />
                         </div>
 
-                        <Botao>
+                        <BotaoCadastro type="submit">
                             Cadastrar
-                        </Botao>
+                        </BotaoCadastro>
                     </Formulario>
 
                 </Conteudo>
