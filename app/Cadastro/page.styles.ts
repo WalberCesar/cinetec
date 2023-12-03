@@ -16,7 +16,7 @@ export const ContainerLogin = styled.div`
     }
 `;
 
-export const Conteudo = styled.form`
+export const Conteudo = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;

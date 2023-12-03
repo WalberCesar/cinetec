@@ -3,8 +3,25 @@
 import { Header } from "@/components/header";
 import { BotaoLogin, ContainerLogin, Conteudo, Formulario, HeaderConteudo, InputEmail, InputSenha } from "./page.styles";
 import { Footer } from "@/components/Footer";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod"
 
+const loginFormSchema = z.object({
+    email: z.string().min(3),
+    senha: z.string().min(3)
+})
+
+type LoginFormSchema = z.infer<typeof loginFormSchema>
 export default function Login() {
+
+    const { handleSubmit, register } = useForm<LoginFormSchema>({
+        resolver: zodResolver(loginFormSchema)
+    });
+
+    function login(data: LoginFormSchema) {
+
+    }
     return (
         <ContainerLogin>
             <Header />
@@ -16,18 +33,18 @@ export default function Login() {
                     </HeaderConteudo>
 
 
-                    <Formulario >
+                    <Formulario onSubmit={handleSubmit(login)} >
                         <div>
                             <p>Email:</p>
-                            <InputEmail placeholder="Digite seu email" />
+                            <InputEmail placeholder="Digite seu email" {...register('email')} />
                         </div>
 
                         <div>
                             <p>Senha:</p>
-                            <InputSenha type="password" placeholder="Digite sua senha" />
+                            <InputSenha type="password" placeholder="Digite sua senha" {...register('senha')} />
                         </div>
 
-                        <BotaoLogin>
+                        <BotaoLogin type="submit">
                             Entrar
                         </BotaoLogin>
                     </Formulario>
