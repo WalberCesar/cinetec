@@ -6,22 +6,66 @@ import { Footer } from "@/components/Footer";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod"
+import { addDoc, collection, deleteDoc, doc, getDoc, onSnapshot, query } from "firebase/firestore";
+import { db } from "../firebase";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const loginFormSchema = z.object({
-    email: z.string().min(3),
-    senha: z.string().min(3)
+    email: z.string(),
+    senha: z.string()
 })
 
 type LoginFormSchema = z.infer<typeof loginFormSchema>
 export default function Login() {
 
-    const { handleSubmit, register } = useForm<LoginFormSchema>({
+    const { push } = useRouter()
+
+    const [listaDeUsuarios, setListaDeUsuarios] = useState<any>()
+    const [usuario, setUsuario] = useState<any>()
+
+
+    const { handleSubmit, register, reset } = useForm<LoginFormSchema>({
         resolver: zodResolver(loginFormSchema)
     });
 
-    function login(data: LoginFormSchema) {
-        console.log(data)
+    async function login(data: LoginFormSchema) {
+
+        const q = await query(collection(db, 'usuarios'))
+
+        await onSnapshot(q, (querySnapshot) => {
+            let listaDeUsuarios: any = []
+            let user
+            querySnapshot.forEach((doc) => {
+                listaDeUsuarios.push({ ...doc.data() })
+                user = doc.data()
+            })
+            setUsuario(user)
+            setListaDeUsuarios(listaDeUsuarios)
+
+        })
+
+
+
+        if (usuario) {
+
+            if (data.email === usuario.email && data.senha === usuario.senha) {
+                await alert('Login Efetuado com sucesso')
+                push('../Home',)
+            } else {
+                alert('Dados incorretos')
+                reset();
+            }
+        }
+
+
+
+
+
     }
+
+
+
     return (
         <ContainerLogin>
             <Header />

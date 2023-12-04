@@ -1,13 +1,13 @@
 'use client'
 
 
-import { FormularioAdm, Container, InputAdm, TextAreaSinopse, BotaoCadastrarAdm, TabelaFilmes, BotaoExcluir } from "./page.styles";
+import { Container, TabelaFilmes, BotaoExcluir } from "./page.styles";
 import { Footer } from "@/components/Footer";
-import { Plus, Trash } from "phosphor-react";
+import { Trash } from "phosphor-react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod"
-import { addDoc, collection, deleteDoc, doc, getDoc, onSnapshot, query, QuerySnapshot } from "firebase/firestore";
+import { addDoc, collection, deleteDoc, doc, onSnapshot, query } from "firebase/firestore";
 import { db } from "../../firebase";
 import { HeaderAdm } from "@/components/headerAdm";
 import { useEffect, useState } from "react";
@@ -46,20 +46,7 @@ export default function FilmesCadastrados() {
         resolver: zodResolver(filmeFormSchema)
     });
 
-    async function adicionarFilme(data: filmeFormSchema) {
 
-        await addDoc(collection(db, 'Filmes'), {
-            titulo: data.titulo,
-            genero: data.genero,
-            duracao: data.duracao,
-            link: data.link,
-            classificacao: data.classificacao,
-            sinopse: data.sinopse
-        })
-
-        reset()
-        alert('Filme adicionado com sucesso!')
-    }
 
     async function deletarFilme(id: string) {
         await alert('Filme excluido com sucesso!')
