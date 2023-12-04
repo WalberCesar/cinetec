@@ -45,13 +45,13 @@ export default function Login() {
 
         })
 
-
-
         if (usuario) {
 
             if (data.email === usuario.email && data.senha === usuario.senha) {
                 await alert('Login Efetuado com sucesso')
-                push('../Home',)
+                localStorage.setItem('cinetec-usuario-logado', usuario.nome)
+                push(`../Home`)
+
             } else {
                 alert('Dados incorretos')
                 reset();

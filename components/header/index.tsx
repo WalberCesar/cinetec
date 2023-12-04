@@ -3,11 +3,21 @@ import { HeaderContainer, HeaderLogin, HeaderMenu, LogoHeader } from "./index.st
 import Logo from '../../public/assets/cinetec_logo.png'
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 
 
 export function Header() {
 
     const path = usePathname();
+    const [nomeUsuario, setNomeUsuario] = useState<any>()
+    useEffect(() => {
+        const buscarUsuario = localStorage.getItem('cinetec-usuario-logado')
+        if (buscarUsuario) {
+            setNomeUsuario(buscarUsuario)
+        }
+
+    }, [setNomeUsuario])
+
 
     return (
         <HeaderContainer>
