@@ -10,6 +10,7 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { addDoc, collection } from "firebase/firestore"
 import { db } from "../firebase";
+import { v4 as uuidv4 } from 'uuid';
 
 
 const cadastroFormSchema = z.object({
@@ -27,29 +28,32 @@ type CadastroFormSchema = z.infer<typeof cadastroFormSchema>
 
 export default function Cadastro() {
 
+
+
     const { handleSubmit, register, reset } = useForm<CadastroFormSchema>({
         resolver: zodResolver(cadastroFormSchema)
     });
 
-    const [ usuario, setUsuario] = useState<CadastroFormSchema>({} as CadastroFormSchema)
+    const [usuario, setUsuario] = useState<CadastroFormSchema>({} as CadastroFormSchema)
 
-     async function cadastrar(data: CadastroFormSchema) {
+    async function cadastrar(data: CadastroFormSchema) {
         const usuario = data
-         await addDoc(collection(db, 'usuarios'), {
-            nome : usuario.nome,
+        await addDoc(collection(db, 'usuarios'), {
+            id_usuario: uuidv4(),
+            nome: usuario.nome,
             cpf: usuario.cpf,
             data_nasc: usuario.dataNascimento,
-            celular : usuario.celular,
+            celular: usuario.celular,
             email: usuario.email,
             senha: usuario.senha
-         })
+        })
 
-         reset()
-         alert('Usúario cadastrado com sucesso!')
+        reset()
+        alert('Usúario cadastrado com sucesso!')
     }
 
 
-    
+
 
     return (
         <ContainerLogin>
