@@ -2,12 +2,13 @@ import Image from "next/image";
 import { HeaderContainer, HeaderLogin, HeaderMenu, LogoHeader } from "./index.style";
 import Logo from '../../public/assets/cinetec_logo.png'
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 
-export function Header() {
 
+export function Header() {
+    const { push } = useRouter();
     const path = usePathname();
     const [nomeUsuario, setNomeUsuario] = useState<any>()
     useEffect(() => {
@@ -18,6 +19,17 @@ export function Header() {
 
     }, [setNomeUsuario])
 
+
+    async function sairDaConta() {
+        await localStorage.removeItem('cinetec-usuario-logado')
+        alert('Você saiu da sua conta!')
+
+        push('/Home')
+
+
+
+
+    }
 
     return (
         <HeaderContainer>
@@ -32,8 +44,20 @@ export function Header() {
             </HeaderMenu>
 
             <HeaderLogin>
-                <Link style={{ color: path === '/Login' && '#8B0000' }} href={"../Login"}>LOGIN</Link>
-                <Link style={{ color: path === '/Cadastro' && '#8B0000' }} href={"../Cadastro"}>CADASTRO</Link>
+                {
+                    nomeUsuario ?
+                        <>
+                            <Link style={{ textTransform: 'uppercase' }} href={""}>{nomeUsuario}</Link>
+                            <Link href={""} onClick={sairDaConta}>SAIR</Link>
+                        </>
+                        :
+
+                        <>
+                            <Link style={{ color: path === '/Login' && '#8B0000' }} href={"../Login"}>LOGIN</Link>
+                            <Link style={{ color: path === '/Cadastro' && '#8B0000' }} href={"../Cadastro"}>CADASTRO</Link>
+                        </>
+
+                }
             </HeaderLogin>
 
 

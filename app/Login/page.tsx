@@ -31,31 +31,39 @@ export default function Login() {
 
     async function login(data: LoginFormSchema) {
 
-        const q = await query(collection(db, 'usuarios'))
 
-        await onSnapshot(q, (querySnapshot) => {
-            let listaDeUsuarios: any = []
-            let user
-            querySnapshot.forEach((doc) => {
-                listaDeUsuarios.push({ ...doc.data() })
-                user = doc.data()
+        if (data.email === 'administrador' && data.senha === '1234') {
+            alert('logado como administrador!')
+            push('/Administrador')
+        } else {
+            const q = await query(collection(db, 'usuarios'))
+
+            await onSnapshot(q, (querySnapshot) => {
+                let listaDeUsuarios: any = []
+                let user
+                querySnapshot.forEach((doc) => {
+                    listaDeUsuarios.push({ ...doc.data() })
+                    user = doc.data()
+                })
+                setUsuario(user)
+                setListaDeUsuarios(listaDeUsuarios)
+
             })
-            setUsuario(user)
-            setListaDeUsuarios(listaDeUsuarios)
 
-        })
+            if (usuario) {
 
-        if (usuario) {
+                if (data.email === usuario.email && data.senha === usuario.senha) {
+                    await alert('Login Efetuado com sucesso')
+                    localStorage.setItem('cinetec-usuario-logado', usuario.nome)
+                    push(`../Home`)
 
-            if (data.email === usuario.email && data.senha === usuario.senha) {
-                await alert('Login Efetuado com sucesso')
-                localStorage.setItem('cinetec-usuario-logado', usuario.nome)
-                push(`../Home`)
-
-            } else {
-                alert('Dados incorretos')
-                reset();
+                } else {
+                    alert('Dados incorretos')
+                    reset();
+                }
             }
+
+
         }
 
 

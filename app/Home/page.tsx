@@ -20,9 +20,50 @@ import mortedodemonio from '../../public/assets/filmesEmBreve/mortedodemonio.png
 import renfield from '../../public/assets/filmesEmBreve/renfield.jpg';
 import { filmesEmBreve } from "@/informacoesFilme/filmesEmBreve";
 import { Footer } from "@/components/Footer";
+import { useEffect, useState } from "react";
+import { z } from "zod";
+import { collection, onSnapshot, query } from "firebase/firestore";
+import { db } from "../firebase";
+import { useRouter } from "next/navigation";
 
+
+
+
+const filmeFormSchema = z.object({
+    titulo: z.string(),
+    genero: z.string(),
+    duracao: z.string(),
+    link: z.string(),
+    classificacao: z.string(),
+    sinopse: z.string(),
+    id: z.string(),
+    imagem: z.string()
+})
+
+type filmeFormSchema = z.infer<typeof filmeFormSchema>
 
 export default function Home() {
+
+
+
+    const [filmes, setFilmes] = useState<filmeFormSchema[]>()
+
+    useEffect(() => {
+        const q = query(collection(db, 'Filmes'))
+
+        const buscarFilmes = onSnapshot(q, (querySnapshot) => {
+            let listaDeFilmes: filmeFormSchema[] = []
+            querySnapshot.forEach((doc) => {
+                listaDeFilmes.push({ ...doc.data() })
+            })
+            setFilmes(listaDeFilmes)
+        })
+
+    }, [])
+
+    const { push } = useRouter()
+
+    console.log(filmes)
     return (
         <Container>
             <Header />
@@ -30,20 +71,20 @@ export default function Home() {
                 <MenuFilmes>
                     <h1>FILMES EM CARTAZ</h1>
                     <ListaFilmes>
-                        {filmesEmCartaz.map(filme => {
+                        {filmes?.map(filme => {
                             return (
-                                <CardFilme key={filme.nome}>
-                                    <Link href={""}>
+                                <CardFilme key={filme.id}>
+                                    <nav onClick={() => push(`/Filme/${filme.id}`)} >
                                         <Image
                                             src={
-                                                filme.nome == 'air' ? air
+                                                filme.imagem == 'air' ? air
                                                     :
-                                                    filme.nome == 'belodesastre' ? belodesastre
+                                                    filme.imagem == 'belodesastre' ? belodesastre
                                                         :
-                                                        filme.nome == 'dungeons' ? dungeons
+                                                        filme.imagem == 'dungeons' ? dungeons
                                                             :
-                                                            filme.nome == 'papa' ? papa :
-                                                                filme.nome == 'suzume' && suzume
+                                                            filme.imagem == 'papa' ? papa :
+                                                                filme.imagem == 'suzume' && suzume
                                             }
                                             width={200}
                                             height={285}
@@ -52,7 +93,7 @@ export default function Home() {
                                         <NomeFilme>
                                             <strong>{filme.titulo}<br />{filme.genero}</strong>
                                         </NomeFilme>
-                                    </Link>
+                                    </nav>
                                     <p>{filme.titulo} <br /> {filme.genero}</p>
                                 </CardFilme>
                             )

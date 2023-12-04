@@ -18,6 +18,8 @@ const filmeFormSchema = z.object({
     link: z.string(),
     classificacao: z.string(),
     sinopse: z.string(),
+    id: z.string(),
+    imagem: z.string()
 })
 
 type filmeFormSchema = z.infer<typeof filmeFormSchema>
@@ -37,7 +39,9 @@ export default function Administrador() {
             duracao: data.duracao,
             link: data.link,
             classificacao: data.classificacao,
-            sinopse: data.sinopse
+            sinopse: data.sinopse,
+            id: data.id,
+            imagem: data.imagem
         })
 
         reset()
@@ -51,6 +55,10 @@ export default function Administrador() {
             <main>
                 <FormularioAdm onSubmit={handleSubmit(adicionarFilme)} >
                     <h1>Administrador</h1>
+                    <div>
+                        <p>identificador:</p>
+                        <InputAdm {...register('id')} />
+                    </div>
                     <div>
                         <p>Titulo do filme:</p>
                         <InputAdm {...register('titulo')} />
@@ -70,6 +78,11 @@ export default function Administrador() {
                     <div>
                         <p>Classificação:</p>
                         <InputAdm {...register('classificacao')} />
+                    </div>
+
+                    <div>
+                        <p>Imagem:</p>
+                        <InputAdm {...register('imagem')} />
                     </div>
                     <div>
                         <p>Sinopse:</p>

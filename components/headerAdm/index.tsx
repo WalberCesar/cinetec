@@ -20,6 +20,10 @@ export function HeaderAdm() {
                 <Link style={{ color: path === '/Administrador/Filmes' && '#8B0000' }} href={"../Administrador/Filmes"}>FILMES</Link>
             </HeaderMenu>
 
+            <HeaderLogin>
+                <Link href={"../Home"} >SAIR</Link>
+            </HeaderLogin>
+
         </HeaderContainer>
     )
 }
