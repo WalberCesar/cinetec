@@ -73,13 +73,14 @@ export default function Programacao() {
                 <ContainerProgramacao>
                     <HeaderData>
                         <label for="inputDatas">Data</label>
-                        <input type="text" name="data" placeholder="06/jun - Terça" list="dataProgramacao" />
+                        <input type="text" name="data" placeholder="04/dez - Seg" list="dataProgramacao" />
                         <datalist id="dataProgramacao">
-                            <option>07/abr - Quarta</option>
-                            <option>08/abr - Quinta</option>
-                            <option>09/abr - Sexta</option>
-                            <option>10/abr - Sabado</option>
-                            <option>11/abr - Domingo</option>
+                            <option>05/dez - Terça</option>
+                            <option>06/dez - Quarta</option>
+                            <option>07/dez - Quinta</option>
+                            <option>08/dez - Sexta</option>
+                            <option>09/dez - Sabado</option>
+                            <option>10/dez - Domingo</option>
                         </datalist>
                     </HeaderData>
 

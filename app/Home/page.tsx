@@ -63,7 +63,6 @@ export default function Home() {
 
     const { push } = useRouter()
 
-    console.log(filmes)
     return (
         <Container>
             <Header />

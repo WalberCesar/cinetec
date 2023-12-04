@@ -8,7 +8,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod"
 import { addDoc, collection, deleteDoc, doc, getDoc, onSnapshot, query } from "firebase/firestore";
 import { db } from "../firebase";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 const loginFormSchema = z.object({
@@ -21,7 +21,7 @@ export default function Login() {
 
     const { push } = useRouter()
 
-    const [listaDeUsuarios, setListaDeUsuarios] = useState<any>()
+    const [listaDeUsuarios, setListaDeUsuarios] = useState<LoginFormSchema[]>()
     const [usuario, setUsuario] = useState<any>()
 
 
@@ -29,49 +29,46 @@ export default function Login() {
         resolver: zodResolver(loginFormSchema)
     });
 
-    async function login(data: LoginFormSchema) {
+    useEffect(() => {
 
+        const q = query(collection(db, 'usuarios'))
+
+        const get = onSnapshot(q, (querySnapshot) => {
+            let listaDeUsuarios: LoginFormSchema[] = []
+
+            querySnapshot.forEach((doc) => {
+                listaDeUsuarios.push({ ...doc.data() })
+
+            })
+
+
+            setListaDeUsuarios(listaDeUsuarios)
+
+        })
+    }, [])
+
+
+
+    async function login(data: LoginFormSchema) {
 
         if (data.email === 'administrador' && data.senha === '1234') {
             alert('logado como administrador!')
             push('/Administrador')
         } else {
-            const q = await query(collection(db, 'usuarios'))
 
-            await onSnapshot(q, (querySnapshot) => {
-                let listaDeUsuarios: any = []
-                let user
-                querySnapshot.forEach((doc) => {
-                    listaDeUsuarios.push({ ...doc.data() })
-                    user = doc.data()
-                })
-                setUsuario(user)
-                setListaDeUsuarios(listaDeUsuarios)
+            await listaDeUsuarios?.map((item: any) => {
+                if (item.email === data.email && item.senha === data.senha) {
+                    alert('Login Efetuado com sucesso')
+                    localStorage.setItem('cinetec-usuario-logado', item.nome)
+                    push(`../Home`)
+
+                }
 
             })
 
-            if (usuario) {
-
-                if (data.email === usuario.email && data.senha === usuario.senha) {
-                    await alert('Login Efetuado com sucesso')
-                    localStorage.setItem('cinetec-usuario-logado', usuario.nome)
-                    push(`../Home`)
-
-                } else {
-                    alert('Dados incorretos')
-                    reset();
-                }
-            }
-
-
         }
 
-
-
-
-
     }
-
 
 
     return (

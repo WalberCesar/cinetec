@@ -11,6 +11,7 @@ import { useState } from "react";
 import { addDoc, collection } from "firebase/firestore"
 import { db } from "../firebase";
 import { v4 as uuidv4 } from 'uuid';
+import { useRouter } from "next/navigation";
 
 
 const cadastroFormSchema = z.object({
@@ -28,7 +29,7 @@ type CadastroFormSchema = z.infer<typeof cadastroFormSchema>
 
 export default function Cadastro() {
 
-
+    const { push } = useRouter()
 
     const { handleSubmit, register, reset } = useForm<CadastroFormSchema>({
         resolver: zodResolver(cadastroFormSchema)
@@ -50,6 +51,8 @@ export default function Cadastro() {
 
         reset()
         alert('Usúario cadastrado com sucesso!')
+        push('/Login')
+
     }
 
 
