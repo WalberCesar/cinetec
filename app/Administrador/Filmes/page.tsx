@@ -62,7 +62,9 @@ export default function FilmesCadastrados() {
     }
 
     async function deletarFilme(id: string) {
+        await alert('Filme excluido com sucesso!')
         await deleteDoc(doc(db, 'Filmes', id))
+
     }
     return (
         <Container>

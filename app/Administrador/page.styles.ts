@@ -11,15 +11,10 @@ export const Container = styled.div`
     main {
         display: flex;
         flex-direction: column;
-        align-items: center;
-        justify-content: center;
         gap: 3rem;
-        padding-top: 2rem;
-        padding-left: 6rem;
-        padding-right: 6rem;
+        padding: 6rem;
         width: 100%;
-        margin-top: 6rem;
-		margin-bottom: 2rem ;
+	
 
 
     }

@@ -11,45 +11,15 @@ export const Container = styled.div`
     main {
         display: flex;
         flex-direction: column;
-        align-items: center;
-        justify-content: center;
         gap: 3rem;
-        padding-top: 2rem;
-        padding-left: 6rem;
-        padding-right: 6rem;
+        padding: 6rem;
         width: 100%;
         min-height: calc(100vh - 12rem);
     }
 
 `;
 
-export const BotaoCadastrarAdm = styled.button`
-        display: flex;
-        flex-direction: row;
-        gap: 0.5rem;
-        align-self: flex-end;
-        align-items: center;
-        justify-content: center;
 
-        padding: 10px;
-        width: 250px;
-        height: 3rem;
-
-        background-color: #32CD32;
-
-        border-radius: 8px;
-        outline: none;
-
-        color: white;
-        font-size: 1.5rem;
-        font-weight: 600;
-        transition: 0.2s;
-
-        &:hover {
-            opacity: 0.9;
-        }
-        
-`;
 
 export const TabelaFilmes = styled.table`
   width: 100%;
