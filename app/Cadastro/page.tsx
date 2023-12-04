@@ -27,7 +27,7 @@ type CadastroFormSchema = z.infer<typeof cadastroFormSchema>
 
 export default function Cadastro() {
 
-    const { handleSubmit, register } = useForm<CadastroFormSchema>({
+    const { handleSubmit, register, reset } = useForm<CadastroFormSchema>({
         resolver: zodResolver(cadastroFormSchema)
     });
 
@@ -43,6 +43,9 @@ export default function Cadastro() {
             email: usuario.email,
             senha: usuario.senha
          })
+
+         reset()
+         alert('Usúario cadastrado com sucesso!')
     }
 
 
