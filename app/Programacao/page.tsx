@@ -5,11 +5,65 @@ import { Botao3D, BotaoDublado, BotaoHorario, Container, ContainerBotoes, Contai
 import { Footer } from "@/components/Footer";
 import Image from "next/image";
 
-import ImageAir from '../../public/assets/filmesEmCartaz/air.png'
+
 import Link from "next/link";
-import ImagemClassificacaoLivre from "../../public/assets/classificacao/livre.png"
+
+import { z } from "zod";
+import { useEffect, useState } from "react";
+import { collection, onSnapshot, query } from "firebase/firestore";
+import { db } from "../firebase";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+
+
+import air from '../../public/assets/filmesEmCartaz/air.png';
+import belodesastre from '../../public/assets/filmesEmCartaz/belodesastre.jpg';
+import dungeons from '../../public/assets/filmesEmCartaz/dungeons.jpg';
+import papa from '../../public/assets/filmesEmCartaz/papa.jpg';
+import suzume from '../../public/assets/filmesEmCartaz/suzume.jpg';
+
+import Imagem12 from "../../public/assets/classificacao/12.png"
+import Imagem10 from "../../public/assets/classificacao/10.png"
+import Imagem14 from "../../public/assets/classificacao/14.png"
+import Imagem16 from "../../public/assets/classificacao/16.png"
+import Imagem18 from "../../public/assets/classificacao/18.png"
+
+const filmeFormSchema = z.object({
+    titulo: z.string(),
+    genero: z.string(),
+    duracao: z.string(),
+    link: z.string(),
+    classificacao: z.string(),
+    sinopse: z.string(),
+    id: z.string(),
+    imagem: z.string()
+})
+
+type filmeFormSchema = z.infer<typeof filmeFormSchema>
 
 export default function Programacao() {
+
+    const [filmes, setFilmes] = useState<filmeFormSchema[]>()
+
+    useEffect(() => {
+        const q = query(collection(db, 'Filmes'))
+
+        const buscarFilmes = onSnapshot(q, (querySnapshot) => {
+            let listaDeFilmes: filmeFormSchema[] = []
+            querySnapshot.forEach((doc) => {
+                listaDeFilmes.push({ ...doc.data() })
+            })
+            setFilmes(listaDeFilmes)
+        })
+
+    }, [])
+
+
+    const { } = useForm<filmeFormSchema>({
+        resolver: zodResolver(filmeFormSchema)
+    });
+
     return (
         <Container>
             <Header />
@@ -29,86 +83,64 @@ export default function Programacao() {
                         </datalist>
                     </HeaderData>
 
-                    <ListaFilmes>
-                        <Image src={ImageAir} alt="" />
+                    {
+                        filmes?.map((item) => {
+                            return (
+                                <ListaFilmes key={item.id}>
+                                    <Image
+                                        src={
+                                            item.imagem == 'air' ? air
+                                                :
+                                                item.imagem == 'belodesastre' ? belodesastre
+                                                    :
+                                                    item.imagem == 'dungeons' ? dungeons
+                                                        :
+                                                        item.imagem == 'papa' ? papa :
+                                                            item.imagem == 'suzume' && suzume
+                                        }
+                                        alt=""
+                                    />
 
-                        <Informacoes>
-                            <h1>AIR</h1>
+                                    <Informacoes>
+                                        <h1>{item.titulo}</h1>
 
-                            <Horarios>
-                                <p>Sala 1</p>
-                                <ContainerBotoes>
-                                    <BotaoDublado>Dublado</BotaoDublado>
-                                    <Botao3D>3D</Botao3D>
-                                    <Link href={''}><BotaoHorario>18:00</BotaoHorario></Link>
-                                </ContainerBotoes>
-                            </Horarios>
-                            <Horarios>
-                                <p>Sala 1</p>
-                                <ContainerBotoes>
-                                    <BotaoDublado>Dublado</BotaoDublado>
-                                    <Botao3D>3D</Botao3D>
-                                    <Link href={''}><BotaoHorario>18:00</BotaoHorario></Link>
-                                </ContainerBotoes>
+                                        <Horarios>
+                                            <p>Sala 1</p>
+                                            <ContainerBotoes>
+                                                <BotaoDublado>Dublado</BotaoDublado>
+                                                <Botao3D>3D</Botao3D>
+                                                <Link href={''}><BotaoHorario>18:00</BotaoHorario></Link>
+                                            </ContainerBotoes>
+                                        </Horarios>
+                                        <Horarios>
+                                            <p>Sala 1</p>
+                                            <ContainerBotoes>
+                                                <BotaoDublado>Dublado</BotaoDublado>
+                                                <Botao3D>3D</Botao3D>
+                                                <Link href={''}><BotaoHorario>18:00</BotaoHorario></Link>
+                                            </ContainerBotoes>
 
-                                <Image alt="" src={ImagemClassificacaoLivre} />
-                            </Horarios>
-                        </Informacoes>
-                    </ListaFilmes>
-                    <ListaFilmes>
-                        <Image src={ImageAir} alt="" />
+                                            <Image
+                                                alt=""
+                                                src={
+                                                    item?.classificacao === '10' ? Imagem10
+                                                        :
+                                                        item?.classificacao === '12' ? Imagem12
+                                                            :
+                                                            item?.classificacao === '14' ? Imagem14
+                                                                :
+                                                                item?.classificacao === '16' ? Imagem16
+                                                                    :
+                                                                    item?.classificacao === '18' && Imagem18
+                                                }
+                                            />
+                                        </Horarios>
+                                    </Informacoes>
+                                </ListaFilmes>
+                            )
+                        })
+                    }
 
-                        <Informacoes>
-                            <h1>AIR</h1>
-
-                            <Horarios>
-                                <p>Sala 1</p>
-                                <ContainerBotoes>
-                                    <BotaoDublado>Dublado</BotaoDublado>
-                                    <Botao3D>3D</Botao3D>
-                                    <Link href={''}><BotaoHorario>18:00</BotaoHorario></Link>
-                                </ContainerBotoes>
-                            </Horarios>
-                            <Horarios>
-                                <p>Sala 1</p>
-                                <ContainerBotoes>
-                                    <BotaoDublado>Dublado</BotaoDublado>
-                                    <Botao3D>3D</Botao3D>
-                                    <Link href={''}><BotaoHorario>18:00</BotaoHorario></Link>
-                                </ContainerBotoes>
-
-                                <Image alt="" src={ImagemClassificacaoLivre} />
-
-                            </Horarios>
-
-                        </Informacoes>
-                    </ListaFilmes>
-                    <ListaFilmes>
-                        <Image src={ImageAir} alt="" />
-
-                        <Informacoes>
-                            <h1>AIR</h1>
-
-                            <Horarios>
-                                <p>Sala 1</p>
-                                <ContainerBotoes>
-                                    <BotaoDublado>Dublado</BotaoDublado>
-                                    <Botao3D>3D</Botao3D>
-                                    <Link href={''}><BotaoHorario>18:00</BotaoHorario></Link>
-                                </ContainerBotoes>
-                            </Horarios>
-                            <Horarios>
-                                <p>Sala 1</p>
-                                <ContainerBotoes>
-                                    <BotaoDublado>Dublado</BotaoDublado>
-                                    <Botao3D>3D</Botao3D>
-                                    <Link href={''}><BotaoHorario>18:00</BotaoHorario></Link>
-                                </ContainerBotoes>
-
-                                <Image alt="" src={ImagemClassificacaoLivre} />
-                            </Horarios>
-                        </Informacoes>
-                    </ListaFilmes>
                 </ContainerProgramacao>
             </main>
 
@@ -116,3 +148,4 @@ export default function Programacao() {
         </Container>
     )
 }
+
