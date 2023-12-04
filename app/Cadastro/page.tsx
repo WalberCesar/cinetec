@@ -7,6 +7,10 @@ import { Input } from "@/components/input";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form";
+import { useState } from "react";
+import { addDoc, collection } from "firebase/firestore"
+import { db } from "../firebase";
+
 
 const cadastroFormSchema = z.object({
     nome: z.string(),
@@ -27,9 +31,22 @@ export default function Cadastro() {
         resolver: zodResolver(cadastroFormSchema)
     });
 
-    function cadastrar(data: CadastroFormSchema) {
-        console.log(data)
+    const [ usuario, setUsuario] = useState<CadastroFormSchema>({} as CadastroFormSchema)
+
+     async function cadastrar(data: CadastroFormSchema) {
+        const usuario = data
+         await addDoc(collection(db, 'usuarios'), {
+            nome : usuario.nome,
+            cpf: usuario.cpf,
+            data_nasc: usuario.dataNascimento,
+            celular : usuario.celular,
+            email: usuario.email,
+            senha: usuario.senha
+         })
     }
+
+
+    
 
     return (
         <ContainerLogin>
