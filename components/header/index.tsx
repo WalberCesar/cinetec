@@ -1,3 +1,5 @@
+'use client'
+
 import Image from "next/image";
 import { HeaderContainer, HeaderLogin, HeaderMenu, LogoHeader } from "./index.style";
 import Logo from '../../public/assets/cinetec_logo.png'
@@ -23,8 +25,12 @@ export function Header() {
     async function sairDaConta() {
         await localStorage.removeItem('cinetec-usuario-logado')
         alert('Você saiu da sua conta!')
+        if (path === '/Home') {
+            window.location.reload();
+        } else {
+            push('/Home')
+        }
 
-        push('/Home')
 
 
 
@@ -47,7 +53,7 @@ export function Header() {
                 {
                     nomeUsuario ?
                         <>
-                            <Link style={{ textTransform: 'uppercase' }} href={""}>{nomeUsuario}</Link>
+                            <Link style={{ textTransform: 'uppercase', cursor: 'default' }} href={""}>{nomeUsuario}</Link>
                             <Link href={""} onClick={sairDaConta}>SAIR</Link>
                         </>
                         :
