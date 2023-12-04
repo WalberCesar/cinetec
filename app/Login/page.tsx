@@ -67,9 +67,10 @@ export default function Login() {
             })
         }
 
-        if (!usuario) {
-            alert('Dados incorretos')
-        }
+
+        // if (!usuario) {
+        //     alert('Dados incorretos')
+        // }
 
     }
 
