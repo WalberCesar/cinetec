@@ -61,11 +61,14 @@ export default function Login() {
                     alert('Login Efetuado com sucesso')
                     localStorage.setItem('cinetec-usuario-logado', item.nome)
                     push(`../Home`)
-
+                    setUsuario(item)
                 }
 
             })
+        }
 
+        if (!usuario) {
+            alert('Dados incorretos')
         }
 
     }
