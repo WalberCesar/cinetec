@@ -90,9 +90,6 @@ export default function Home() {
                                             height={285}
                                             alt=""
                                         />
-                                        <NomeFilme>
-                                            <strong>{filme.titulo}<br />{filme.genero}</strong>
-                                        </NomeFilme>
                                     </nav>
                                     <p>{filme.titulo} <br /> {filme.genero}</p>
                                 </CardFilme>
@@ -109,8 +106,9 @@ export default function Home() {
                         {filmesEmBreve.map(filme => {
                             return (
                                 <CardFilme key={filme.nome}>
-                                    <Link href={""}>
+                                    <nav>
                                         <Image
+                                            style={{ cursor: 'default' }}
                                             src={
                                                 filme.nome == 'ninguem' ? ninguem
                                                     :
@@ -125,10 +123,7 @@ export default function Home() {
                                             height={285}
                                             alt=""
                                         />
-                                        <NomeFilme>
-                                            <strong>{filme.titulo}<br />{filme.genero}</strong>
-                                        </NomeFilme>
-                                    </Link>
+                                    </nav>
                                 </CardFilme>
                             )
                         })}

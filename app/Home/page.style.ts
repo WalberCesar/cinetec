@@ -10,11 +10,11 @@ export const Container = styled.div`
     main {
         display: flex;
         flex-direction: column;
-
+        
         align-items: center;
         justify-content: center;
         gap: 3rem;
-        padding: 2rem 0;
+        padding: 6rem 0;
 
 
         width: 100%;
@@ -29,7 +29,6 @@ export const MenuFilmes = styled.div`
     display: flex;
 	flex-direction: column;
 	gap: 2rem;
-	margin-top: 6rem;
 
     h1 {
         cursor: default;
@@ -47,10 +46,6 @@ export const ListaFilmes = styled.div`
 	justify-content: center;
 	gap: 1.5rem;
 	height: 285px;
-
-    a {
-        text-decoration: none;
-    }
   
 `;
 
@@ -66,41 +61,5 @@ export const CardFilme = styled.div`
         border-radius: 10px;
         border: 3px solid #F0E68C;
     }
-    
-    &:hover {
-        div {
-            opacity: 1;
-        }
-    }
-
 `;
 
-export const NomeFilme = styled.div`
-    display: flex;
-	font-family: Arial, Helvetica, sans-serif;
-	justify-content: flex-start;
-	padding: 20px;
-	background: linear-gradient(180deg, rgba(146, 17, 17, 0.1) 0%, rgba(146, 17, 17, 0.6) 30%, rgba(146, 17, 17, 1) 100%);
-	height: 100px;
-	width: 100%;
-	max-width: 200px;
-	text-align: center;
-	justify-content: center;
-	border-bottom-left-radius: 9px;
-	border-bottom-right-radius: 9px;
-	transition: .3s;
-
-	opacity: 0;
-	margin-top: -100;
-	position: relative;
-	z-index: 10;
-
-    strong {
-        color: #DCDCDC;
-        font-weight: 900;
-        font-size: 0.75rem;
-        display: flex;
-        justify-content: center;
-        align-items: end;
-    }
-`;
